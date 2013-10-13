@@ -9,9 +9,20 @@ def cfgini():
 	home = os.path.expanduser('~')
 	cfgroot = home+'/.souper'
 	cfgfile = cfgroot+'/souper.cfg'
-	
-	if not os.path.exists(home+'/.souper'):
-		os.mkdir(home+'/.souper')
+	if not os.path.exists(cfgroot):
+		os.mkdir(cfgroot)
+
+		
+	try:
+		
+		open(cfgfile)
+	except IOError:
+		print('does not exist')
+		open(cfgfile, 'a').close()
+		
+
+		
+
 
 	
 
@@ -21,5 +32,5 @@ class Soup:
 		self.self = self
 		self.url = url
 	
-	
-
+cfgini()	
+s
