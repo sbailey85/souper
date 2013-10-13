@@ -18,7 +18,7 @@ def cfgini():
 		open(cfgfile)
 	except IOError:
 		print('does not exist')
-		open(cfgfile, 'a').close()
+		cfg = open(cfgfile, 'w')	
 		
 
 		
@@ -28,9 +28,15 @@ def cfgini():
 
 
 class Soup:
-	def __init_(self,url):
+	def __init__(self,url):
 		self.self = self
 		self.url = url
-	
-cfgini()	
-s
+	def getpage(url):
+		urllib2.urlopen(url).read()
+	def getsoup():
+		soup = BeautifulSoup(getpage(url))
+		return soup
+
+
+
+a = Soup(url='http://google.com')
