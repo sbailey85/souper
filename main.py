@@ -1,10 +1,16 @@
 #!/usr/bin/python
-
+import re
 import os
 import urllib2
 from bs4 import BeautifulSoup
 import ConfigParser
 
+
+cachedir = os.path.expanduser('~')+'/.souper/cache/'
+if not os.path.exists(cachedir):
+	os.mkdir(cachedir)
+else:
+	print('exits')
 def cfgini():
 	home = os.path.expanduser('~')
 	cfgroot = home+'/.souper'
@@ -27,16 +33,25 @@ def cfgini():
 	
 
 
-class Soup:
+class Souper():
 	def __init__(self,url):
 		self.self = self
 		self.url = url
-	def getpage(url):
-		urllib2.urlopen(url).read()
-	def getsoup():
-		soup = BeautifulSoup(getpage(url))
-		return soup
+		fname = self.url.split('/')[2]
+		self.name = fname
+		if os.path.exists(cachedir+fname):
+			self.soup = BeautifulSoup(open(cachedir+fname).read())
+		else:
+			os.mkdir(cachedir+fname)
+			f = open(cachedir+fname+fname, 'w')
+			f.write(urllib2.urlopen(self.url).read())
+			f.close()		
+			
+		
+	def getlinks(self):
+		 print(self.soup.find_all('a'))
+	def getstatic(self):
+		print(self.soup.find_all(href=re.compile('.jpg$'))['href'])	
 
 
 
-a = Soup(url='http://google.com')
